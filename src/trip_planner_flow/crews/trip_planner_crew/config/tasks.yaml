@@ -1,0 +1,58 @@
+trip_plan_task:
+  description: >
+    Develop a **comprehensive and structured** itinerary from {travel_start_Date} to {travel_end_Date}, ensuring:
+    - **Arrival logistics**: Airport transfer from {destination_airport} to {destination_location}.
+    - **Day-wise schedule** covering:
+      - **Activities from {place_selection_modified_op}** with time-stamped details.
+      - **Dining recommendations** based on {food_preferences}.
+      - **Hotel check-in/out details** for {hotel_accomodation_type}.
+      - **Realistic travel durations & mode of transport** (taxi, bus, rental, etc.).
+      - **Cost estimates for each activity, meal, transport, and stay**.
+      - **Alternative recommendations in case of weather or schedule changes**.
+    - **Departure logistics**: Flight {return_flight}, airport transfer.
+
+  expected_output: >
+    - **A fully structured itinerary** covering arrival, day-wise plans, and departure.
+    - **Estimated costs per activity, transport, and accommodation**.
+    - **Realistic logistics for seamless transitions between activities**.
+    - **Total trip cost breakdown per person**.
+  agent: trip_planner
+
+
+
+
+
+# trip_plan_task:
+#   description: >
+#     Develop a **comprehensive** and **structured** itinerary from {travel_start_Date} to {travel_end_Date}:
+#     - **Arrival:** Flight {going_flight} lands at {destination_airport}. Provide airport transfer details to {destination_location}.
+#     - **Daily Schedule:** A detailed, **hour-by-hour** itinerary covering:
+#       - **Morning, Afternoon, and Evening Activities** from {local_guide_op}.
+#       - **Dining recommendations** matching {food_preferences}, including meal timings.
+#       - **Hotel stay details**, including check-in/out timing.
+#       - **Local transportation logistics**, specifying mode, time, and cost.
+#       - **Activity cost breakdown** and total estimated budget per person: {budget}.
+#     - **Departure:** Return flight {return_flight}, including airport transfer logistics.
+
+#   expected_output: >
+#     - **A fully structured itinerary** covering arrival, day-wise activities with precise time, meals, and departure.
+#     - **Estimated costs per activity**, along with transport and accommodation expenses.
+#     - **Logistical details** ensuring **smooth transitions** between activities.
+#     - **Summary of total trip costs per person**.
+#   agent: trip_planner
+
+# trip_plan_task:
+#   description: >
+#     Develop a structured itinerary from {travel_start_Date} to {travel_end_Date}:
+#     - Start with arrival at {destination_airport} and transport details to {destination_location}.
+#     - Conclude with return flight {return_flight}.
+#     - Incorporate {local_guide_op} details, including attractions, accommodations, and dining.
+#     - Provide a detailed breakdown of daily schedules with time-stamped activities.
+#     - Ensure realistic transit durations and feasibility analysis.
+#     - Maintain budget adherence for {number_of_members} travelers.
+#   expected_output: >
+#     - A complete itinerary covering arrival, daily activities along with timing details, meals, and departure.
+#     - Estimated costs and transit details for each activity.
+#     - Accommodation check-in/out schedules.
+#     - Summary of total trip costs per person.
+#   agent: trip_planner

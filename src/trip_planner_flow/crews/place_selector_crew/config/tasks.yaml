@@ -1,0 +1,21 @@
+city_selection_task:
+  description: >
+    Identify the best places to visit in {destination_location} based on the user's interests: {interest}. Ensure that the selected places align with the available days from {travel_start_Date} to {travel_end_Date}, distributing locations effectively across the trip duration.
+    
+    **For each selected place, provide the following details:**
+      - Name of the place
+      - A concise and engaging description of why it is worth visiting.
+      - Nearby accomodation options
+      - An estimate of the time needed to explore the place.
+
+    **Also, if you feel that this is few must-visit locations that are highly recommended, even if they do not fully align with the user's interests then feel free to add that location.**
+    
+  expected_output: >
+    A well-structured list of places to visit in {destination_location} for the given travel duration. Each entry should include:
+      - Place Name
+      - Brief Description
+      - Nearby Accomodation Options
+      - Approximate Time Needed to Explore
+      - Selection Justification (aligned with user interest or a must-visit spot)
+    
+  agent: city_selector

@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Search</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .search-form {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .form-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .form-group {
+            flex: 1;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        select, input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .results-container {
+            display: none;
+        }
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .tab-button {
+            padding: 10px 20px;
+            background-color: #f0f0f0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .tab-button.active {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .flight-card {
+            background-color: white;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .segment {
+            border-bottom: 1px solid #eee;
+            padding: 10px 0;
+        }
+        .segment:last-child {
+            border-bottom: none;
+        }
+        .price {
+            font-size: 1.2em;
+            color: #4CAF50;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .loading {
+            text-align: center;
+            padding: 20px;
+            display: none;
+        }
+        .book-button {
+            background-color: #007bff;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+            width: auto;
+        }
+        .flight-card.selected {
+            border: 2px solid #4CAF50;
+        }
+
+        .flight-card.selected .book-button {
+            background-color: #4CAF50;
+        }
+
+        .book-button:hover {
+            background-color: #0056b3;
+        }
+       
+
+input[type="number"],
+input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: white;
+}
+
+.form-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+    flex-wrap: wrap; /* Add this */
+}
+
+.form-group {
+    flex: 1;
+    min-width: 200px; /* Add this */
+}
+
+/* Add this for better mobile responsiveness */
+@media (max-width: 768px) {
+    .form-group {
+        flex: 100%;
+    }
+}
+
+/* Add this to ensure proper spacing between sections */
+.search-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Add this to make form inputs more visible */
+input[type="text"],
+input[type="number"],
+input[type="date"],
+select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+}
+
+/* Add this to make labels more visible */
+label {
+    color: #333;
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: block;
+}
+
+/* Add this to your CSS */
+#report-container {
+    padding: 20px;
+    margin: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+#report-container h1,
+#report-container h2,
+#report-container h3 {
+    color: #333;
+    margin-top: 1em;
+}
+
+#report-container p {
+    line-height: 1.6;
+    color: #444;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="search-form">
+            <form id="flightSearchForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="origin_country">Origin Country:</label>
+                        <select id="origin_country" name="origin_country" required>
+                            <option value="">Select Country</option>
+                            {% for country in countries %}
+                            <option value="{{ country }}">{{ country }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="origin_airport">Origin Airport:</label>
+                        <select id="origin_airport" name="origin_airport" required>
+                            <option value="">Select Airport</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="destination_country">Destination Country:</label>
+                        <select id="destination_country" name="destination_country" required>
+                            <option value="">Select Country</option>
+                            {% for country in countries %}
+                            <option value="{{ country }}">{{ country }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="destination_airport">Destination Airport:</label>
+                        <select id="destination_airport" name="destination_airport" required>
+                            <option value="">Select Airport</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="destination_location">Destinatio Location:</label>
+                    <input type="text" class="form-control" id="destination_location" name="destination_location" placeholder="e.g. shimla, manali, goa">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="travel_start_date">Departure Date:</label>
+                        <input type="date" id="travel_start_date" name="travel_start_date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="travel_end_date">Return Date:</label>
+                        <input type="date" id="travel_end_date" name="travel_end_date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="number_of_members">Number of Passengers:</label>
+                        <input type="number" id="number_of_members" name="number_of_members" min="1" required>
+                    </div>
+                </div>
+
+                <!-- Add this right before the existing search button -->
+<div class="form-row">
+    <div class="form-group">
+        <label for="hotel_location_preference">Hotel Location:</label>
+        <input type="text" id="hotel_location_preference" name="hotel_location_preference" placeholder="e.g. City Center, Beach Front">
+    </div>
+    <div class="form-group">
+        <label for="hotel_rating">Hotel Rating:</label>
+        <select id="hotel_rating" name="hotel_rating">
+            <option value="">Select Rating</option>
+            <option value="3 star">3 Star</option>
+            <option value="5 star">5 Star</option>
+            <option value="7 star">7 Star</option>
+        </select>
+    </div>
+</div>
+
+<div class="form-row">
+    <div class="form-group">
+        <label for="hotel_accomodation_type">Accommodation Type:</label>
+        <select id="hotel_accomodation_type" name="hotel_accomodation_type">
+            <option value="">Select Type</option>
+            <option value="hotel">Hotel</option>
+            <option value="apartment">Apartment</option>
+            <option value="resort">Resort</option>
+            <option value="villa">Villa</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="interest">Interests:</label>
+        <input type="text" class="form-control" id="interest" name="interest" placeholder="e.g. kayaking, music, art, museums">
+    </div>
+</div>
+
+<div class="form-row">
+    <div class="form-group">
+        <label for="food_preferences">Food Preference:</label>
+        <select id="food_preferences" name="food_preferences">
+            <option value="">Select Preference</option>
+            <option value="vegetarian">Vegetarian</option>
+            <option value="non-vegetarian">Non Vegetarian</option>
+            <option value="vegan">Vegan</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="budget">Budget Per Person:</label>
+        <input type="text" id="budget" name="budget" placeholder="e.g. 12000 INR">
+    </div>
+</div>
+
+                <button type="submit">Search Flights</button>
+            </form>
+        </div>
+
+        <div id="loading" class="loading">
+            Searching for flights...
+        </div>
+
+        <div id="results" class="results-container">
+            <div class="tabs">
+                <button class="tab-button active" onclick="showFlights('outbound')" id="outboundBtn">Outbound Flights</button>
+                <button class="tab-button" onclick="showFlights('return')" id="returnBtn">Return Flights</button>
+            </div>
+            <div id="outboundFlights"></div>
+            <div id="returnFlights" style="display: none;"></div>
+        </div>
+
+        <div id="report-container"></div>
+    </div>
+
+    <script>
+
+let selectedFlights = {
+    outbound: null,
+    return: null
+};
+let flightData = {
+    outbound: null,
+    return: null
+};
+
+        function updateAirports(countrySelect, airportSelect) {
+            const country = countrySelect.value;
+            if (!country) {
+                airportSelect.innerHTML = '<option value="">Select Airport</option>';
+                return;
+            }
+
+            fetch(`/get_airports/${country}`)
+                .then(response => response.json())
+                .then(data => {
+                    airportSelect.innerHTML = '<option value="">Select Airport</option>';
+                    data.airports.forEach(airport => {
+                        const option = document.createElement('option');
+                        option.value = airport.code;
+                        option.textContent = `${airport.city} (${airport.code})`;
+                        airportSelect.appendChild(option);
+                    });
+                });
+        }
+
+        function formatDateTime(dateTimeStr) {
+            return new Date(dateTimeStr).toLocaleString();
+        }
+
+        // Format duration
+        function formatDuration(duration) {
+            return duration.replace('PT', '').replace('H', 'h ').replace('M', 'm');
+        }
+
+        function createFlightCard(flight, direction) {
+            const itinerary = flight.itineraries[0];
+            let html = `<div class="flight-card ${selectedFlights[direction]?.id === flight.id ? 'selected' : ''}">`;
+            
+            itinerary.segments.forEach((segment, index) => {
+                html += `
+                    <div class="segment">
+                        <strong>Flight ${index + 1}</strong><br>
+                        ${segment.departure.iataCode} (${segment.departure.terminal || 'N/A'}) → 
+                        ${segment.arrival.iataCode} (${segment.arrival.terminal || 'N/A'})<br>
+                        Departure: ${formatDateTime(segment.departure.at)}<br>
+                        Arrival: ${formatDateTime(segment.arrival.at)}<br>
+                        Duration: ${formatDuration(segment.duration)}<br>
+                        Flight: ${segment.carrierCode} ${segment.number}
+                    </div>
+                `;
+            });
+
+            html += `
+                <div class="price">
+                    Price: ${flight.price.currency} ${flight.price.total}<br>
+                    Available Seats: ${flight.numberOfBookableSeats}
+                </div>
+                <button class="book-button" onclick="selectFlight('${direction}', ${JSON.stringify(flight).replace(/"/g, '&quot;')})">
+                    ${selectedFlights[direction]?.id === flight.id ? 'Selected' : 'Select Flight'}
+                </button>
+            </div>`;
+
+            return html;
+        }
+
+        function selectFlight(direction, flight) {
+            selectedFlights[direction] = flight;
+            
+            // Refresh flight displays
+            if (direction === 'outbound') {
+                document.getElementById('outboundFlights').innerHTML = flightData.outbound.data.map(f => createFlightCard(f, 'outbound')).join('');
+            } else {
+                document.getElementById('returnFlights').innerHTML = flightData.return.data.map(f => createFlightCard(f, 'return')).join('');
+            }
+
+            // Check if both flights are selected
+            if (selectedFlights.outbound && selectedFlights.return) {
+                bookFlights();
+            } else {
+                // If outbound is selected, switch to return flights tab
+                if (direction === 'outbound') {
+                    showFlights('return');
+                }
+            }
+        }
+
+function bookFlights() {
+    if (confirm('Would you like to proceed with booking these flights?')) {
+        fetch('/book_flight', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                outbound_flight: selectedFlights.outbound,
+                return_flight: selectedFlights.return
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Flights booked successfully!');
+                // Make the second fetch call
+                return fetch('/run', {
+                    method: 'POST'
+                });
+            } else {
+                throw new Error(data.error || 'Failed to book flights');
+            }
+        })
+        .then(response => response.json())  // Handle response from /run endpoint
+        .then(data => {
+            if (data.success) {
+                // Display the report in the container
+                document.getElementById('report-container').innerHTML = data.report;
+                alert('Trip planning completed successfully!');
+            } else {
+                throw new Error(data.error || 'Failed to generate trip plan');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred: ' + error.message);
+        });
+    }
+}
+
+        function bookFlight(flightId) {
+            if (confirm('Would you like to proceed with booking this flight?')) {
+                fetch('/book_flight', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ flight_id: flightId })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Flight booked successfully!');
+                    } else {
+                        alert(data.error || 'Failed to book flight');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while booking the flight');
+                });
+            }
+        }
+
+        // Show/hide flight results
+        function showFlights(type) {
+            document.getElementById('outboundFlights').style.display = type === 'outbound' ? 'block' : 'none';
+            document.getElementById('returnFlights').style.display = type === 'return' ? 'block' : 'none';
+            document.getElementById('outboundBtn').classList.toggle('active', type === 'outbound');
+            document.getElementById('returnBtn').classList.toggle('active', type === 'return');
+        }
+
+        // Event listeners
+        document.getElementById('origin_country').addEventListener('change', function() {
+            updateAirports(this, document.getElementById('origin_airport'));
+        });
+
+        document.getElementById('destination_country').addEventListener('change', function() {
+            updateAirports(this, document.getElementById('destination_airport'));
+        });
+
+        document.getElementById('flightSearchForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+    
+            const loading = document.getElementById('loading');
+            const results = document.getElementById('results');
+            
+            loading.style.display = 'block';
+            results.style.display = 'none';
+
+            // Clear previous results
+            document.getElementById('outboundFlights').innerHTML = '';
+            document.getElementById('returnFlights').innerHTML = '';
+
+            const formData = new FormData(this);
+            const searchData = {
+                origin_airport: formData.get('origin_airport'),
+                destination_airport: formData.get('destination_airport'),
+                destination_location: formData.get('destination_location'),
+                travel_start_date: formData.get('travel_start_date'),
+                travel_end_date: formData.get('travel_end_date'),
+                number_of_members: formData.get('number_of_members'),
+                hotel_location_preference: formData.get('hotel_location_preference'),
+                hotel_rating: formData.get('hotel_rating'),
+                hotel_accomodation_type: formData.get('hotel_accomodation_type'),
+                interest: formData.get('interest'),
+                food_preferences: formData.get('food_preferences'),
+                budget: formData.get('budget')
+            };
+
+            fetch('/search_flights', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(searchData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                loading.style.display = 'none';
+                results.style.display = 'block';
+
+                if (data.error) {
+                    showError(data.error);
+                    return;
+                }
+
+                flightData = data;
+
+                // Handle outbound flights
+                const outboundContainer = document.getElementById('outboundFlights');
+                if (typeof data.outbound === 'string') {
+                    outboundContainer.innerHTML = `<div class="error-message">${data.outbound}</div>`;
+                } else if (data.outbound && data.outbound.data && data.outbound.data.length > 0) {
+                    outboundContainer.innerHTML = data.outbound.data.map(f => createFlightCard(f, 'outbound')).join('');
+                } else {
+                    outboundContainer.innerHTML = '<div class="error-message">No outbound flights found</div>';
+                }
+
+                // Handle return flights
+                const returnContainer = document.getElementById('returnFlights');
+                if (typeof data.return === 'string') {
+                    returnContainer.innerHTML = `<div class="error-message">${data.return}</div>`;
+                } else if (data.return && data.return.data && data.return.data.length > 0) {
+                    returnContainer.innerHTML = data.return.data.map(f => createFlightCard(f, 'return')).join('');
+                } else {
+                    returnContainer.innerHTML = '<div class="error-message">No return flights found</div>';
+                }
+
+                showFlights('outbound');
+            })
+            .catch(error => {
+                loading.style.display = 'none';
+                showError('An error occurred while searching for flights. Please try again.');
+                console.error('Error:', error);
+            });
+        });
+
+        function showError(message) {
+            const errorHtml = `<div class="error-message">${message}</div>`;
+            document.getElementById('outboundFlights').innerHTML = errorHtml;
+            document.getElementById('returnFlights').innerHTML = errorHtml;
+        }
+    </script>
+
+</body>
+</html>
