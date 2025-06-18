@@ -1,134 +1,52 @@
 **Arrival Logistics**
 
-* Flight ID: 1
-* Price: €1469.98 (grandTotal), including all fees
-* Departure: 2025-06-18T03:55:00 (Terminal 2, IATA Code AMD)
-* Arrival: 2025-06-18T22:37:00 (Terminal 2, IATA Code ONT)
-* Airline: QR
-* Aircraft: QR 320, QR 77W, QR 73J
+* Flight {'flight_id': '1', 'price': {'base': '72.00', 'currency': 'EUR', 'fees': [{'amount': '0.00', 'type': 'SUPPLIER'}, {'amount': '0.00', 'type': 'TICKETING'}], 'grandTotal': '97.80', 'total': '97.80'}, 'departure': {'at': '2025-06-21T15:15:00', 'iataCode': 'GOI'}, 'arrival': {'at': '2025-06-21T16:55:00', 'iataCode': 'AMD', 'terminal': '1'}, 'segments': [{'aircraft': {'code': '32N'}, 'arrival': {'at': '2025-06-21T16:55:00', 'iataCode': 'AMD', 'terminal': '1'}, 'blacklistedInEU': False, 'carrierCode': 'AI', 'departure': {'at': '2025-06-21T15:15:00', 'iataCode': 'GOI'}, 'duration': 'PT1H40M', 'id': '51', 'number': '2598', 'numberOfStops': 0, 'operating': {'carrierCode': 'AI'}}}}
 
-**Airport Transfer Logistics**
+**Day 1: Arrival and Check-in**
 
-* Mode: Taxi
-* Cost: $50-$60
-* Estimated Travel Time: 30-40 minutes
+* Arrive at Armenia Airport (AMD)
+* Take taxi to hotel (approximately 30 minutes, $10-$15 USD)
+* Check-in at The Park Hyatt Goa Resort & Spa (approximately 2 hours, $100-$150 USD)
 
-**Day-wise Itinerary (2025-06-18)**
+**Day 2: Baga Beach and Vagator Beach**
 
-1. 
-   * Place Name: Mambo Craze Cabaret
-   * Brief Description: A lively cabaret featuring live music, dance performances, and themed events.
-   * Nearby Accommodation Options:
-     * Hotel: The Jeremy West Hollywood (4-star)
-     * Price Range: $200-$400 per night
-   * Approximate Time Needed to Explore: 2 hours
+* Breakfast at the hotel (approximately 1 hour, $20-$30 USD)
+* Take bus to Baga Beach (approximately 30 minutes, $5-$10 USD)
+* Spend the day relaxing on Baga Beach
+* Lunch at a local restaurant (approximately 2 hours, $15-$25 USD)
+* Visit Vagator Beach and explore the flea markets (approximately 4-5 hours, $10-$20 USD)
 
-2. 
-   * Place Name: Mrs Fish
-   * Brief Description: An upscale restaurant with live jazz music and a sophisticated atmosphere.
-   * Nearby Accommodation Options:
-     * Hotel: The Setai Los Angeles (5-star)
-     * Price Range: $300-$500 per night
-   * Approximate Time Needed to Explore: 2 hours
+**Day 3: Chapora Fort and Palolem Beach**
 
-3. 
-   * Place Name: Mom's Bar
-   * Brief Description: A popular bar with live music, karaoke nights, and a lively atmosphere.
-   * Nearby Accommodation Options:
-     * Hotel: The Orlando Hotel (4-star)
-     * Price Range: $150-$300 per night
-   * Approximate Time Needed to Explore: 2 hours
+* Breakfast at the hotel (approximately 1 hour, $20-$30 USD)
+* Take bus to Chapora Fort (approximately 30 minutes, $5-$10 USD)
+* Spend the day exploring Chapora Fort
+* Lunch at a local restaurant (approximately 2 hours, $15-$25 USD)
+* Visit Palolem Beach and enjoy water sports (approximately 4-5 hours, $20-$40 USD)
 
-4. 
-   * Place Name: Exchange LA
-   * Brief Description: A top-rated nightclub with live EDM music and events.
-   * Nearby Accommodation Options:
-     * Hotel: The LINE Los Angeles (5-star)
-     * Price Range: $250-$400 per night
-   * Approximate Time Needed to Explore: 2 hours
+**Day 4: Silent Noise Parties**
 
-5. 
-   * Place Name: Let's Go Disco
-   * Brief Description: A popular dance club with themed nights and live DJs.
-   * Nearby Accommodation Options:
-     * Hotel: The Andaz Los Angeles (4-star)
-     * Price Range: $200-$350 per night
-   * Approximate Time Needed to Explore: 2 hours
+* Breakfast at the hotel (approximately 1 hour, $20-$30 USD)
+* Spend the day attending Silent Noise Parties
+* Lunch at a local restaurant (approximately 2 hours, $15-$25 USD)
+* Relax on Baga Beach or visit Vagator Beach
 
-6. 
-   * Place Name: Grand Avenue Night Club
-   * Brief Description: A trendy nightclub with live music, DJs, and a stylish atmosphere.
-   * Nearby Accommodation Options:
-     * Hotel: The Viceroy Los Angeles (5-star)
-     * Price Range: $300-$500 per night
-   * Approximate Time Needed to Explore: 2 hours
+**Day 5: Departure**
 
-7. 
-   * Place Name: Le Jardin LA
-   * Brief Description: A stylish bar with live jazz music, cocktails, and a sophisticated atmosphere.
-   * Nearby Accommodation Options:
-     * Hotel: The Edition Los Angeles (5-star)
-     * Price Range: $350-$550 per night
-   * Approximate Time Needed to Explore: 2 hours
+* Check-out of the hotel (approximately 2 hours, $100-$150 USD)
+* Take taxi to Armenia Airport (approximately 30 minutes, $10-$15 USD)
+* Depart from Armenia Airport
 
-8. 
-   * Place Name: Davey Wayne's
-   * Brief Description: A popular bar with live music, trivia nights, and a fun atmosphere.
-   * Nearby Accommodation Options:
-     * Hotel: The Orlando Hotel (4-star)
-     * Price Range: $150-$300 per night
-   * Approximate Time Needed to Explore: 2 hours
+**Total Cost Breakdown**
 
-9. 
-   * Place Name: Breakroom 88
-   * Brief Description: A popular dance club with themed nights, live DJs, and a stylish atmosphere.
-   * Nearby Accommodation Options:
-     * Hotel: The Andaz Los Angeles (4-star)
-     * Price Range: $200-$350 per night
-   * Approximate Time Needed to Explore: 2 hours
+* Flights: $97.80
+* Accommodation: $400-$600 USD (depending on the hotel and room type)
+* Food and drinks: $200-$300 USD (estimated)
+* Transportation: $50-$100 USD (estimated)
+* Activities and entrance fees: $100-$150 USD (estimated)
 
-10. 
-    * Place Name: Cliftons
-    * Brief Description: A popular nightclub with live music, DJs, and a stylish atmosphere.
-        * Hotel: The Viceroy Los Angeles (5-star)
-        * Price Range: $300-$500 per night
-    * Approximate Time Needed to Explore: 2 hours
+**Total Trip Cost**: $748.80-$1,047.80 USD
 
-**Dining Recommendations**
+Note that these estimates are approximate and may vary depending on individual preferences and exchange rates.
 
-* Vegetarian options:
-	+ Mrs Fish (vegetarian appetizers available)
-	+ Le Jardin LA (vegetarian cocktails and snacks)
-	+ Davey Wayne's (vegetarian menu option available)
-
-**Hotel Check-in/Out Details**
-
-* Hotel: The Jeremy West Hollywood
-* Check-in Time: 15:00
-* Check-out Time: 12:00
-
-**Realistic Travel Durations & Mode of Transport**
-
-* Taxi ride from LAX to city center: 30-40 minutes, $50-$60
-* Public transportation (bus): 45-60 minutes, $2.75-$3.25
-* Rental car: 1 hour, $20-$30
-
-**Cost Estimates per Activity, Transport, and Accommodation**
-
-* Flight ticket: €1068.94
-* Taxi ride: $50-$60
-* Hotel stay (2 nights): $800-$1200
-* Food and drinks: $200-$300
-* Transportation (public bus): $5-$7
-
-**Total Trip Cost Breakdown per Person**
-
-* Total cost for 2 people: €2638.88 (€1319.44 per person)
-* Total cost including flight ticket: €2649.94 (€1324.97 per person)
-
-Note: Prices are estimates and may vary depending on individual preferences and exchange rates.
-
-**Alternative Recommendations in Case of Weather or Schedule Changes**
-
-* In case of bad weather, consider indoor activities such as visiting museums or shopping malls.
-* If there are schedule changes, be flexible with your plans and adjust accordingly.
+Please let me know if this meets your expectations!

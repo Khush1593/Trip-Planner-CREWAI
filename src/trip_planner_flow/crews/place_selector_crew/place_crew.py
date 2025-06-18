@@ -2,7 +2,6 @@ from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
 from src.trip_planner_flow.tools.google_search_tool import MyCustomTool
 from src.trip_planner_flow.tools.map_search_tool import MapSearchTool
-from crewai_tools import ScrapeWebsiteTool
 from langchain_openai import ChatOpenAI
 from dotenv import load_dotenv
 load_dotenv()
@@ -25,12 +24,11 @@ class PlaceCrew:
 			tools=[MyCustomTool(), MapSearchTool()], # Example of custom tool, loaded on the beginning of file
 			verbose=True,
 			max_iter = 10,
-			# allow_delegation=True,
 			llm = llm
 		)
 
     @task
-    def write_poem(self) -> Task:
+    def selects_the_places(self) -> Task:
         return Task(
 			config=self.tasks_config['city_selection_task'],
 		)

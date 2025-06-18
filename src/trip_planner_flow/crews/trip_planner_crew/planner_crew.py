@@ -21,7 +21,6 @@ class PlannerCrew:
         return Agent(
 			config=self.agents_config['trip_planner'],
 			verbose=True,
-			# allow_delegation=True,
 			llm = llm
 		)
 
@@ -40,6 +39,6 @@ class PlannerCrew:
             agents=self.agents,
             tasks=self.tasks,
             process=Process.sequential,
-            verbose=True,
+            verbose=True
         )
     
